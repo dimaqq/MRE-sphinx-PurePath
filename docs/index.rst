@@ -6,28 +6,10 @@ ops library API reference
    :maxdepth: 2
    :caption: Contents:
 
-ops module
-==========
-
-.. automodule:: ops
-
-
-main
+this
 -----------
 
-.. automodule:: ops.main
-
-
-ops.pebble module
-=================
-
-.. automodule:: ops.pebble
-
-
-ops.testing module
-==================
-
-.. automodule:: ops.testing
+.. automodule:: ops.model
 
 
 Indices
