@@ -2,10 +2,6 @@
 import sys
 import os
 
-sys.path.append('./')
-sys.path.append('.sphinx/')
-from build_requirements import *
-
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
