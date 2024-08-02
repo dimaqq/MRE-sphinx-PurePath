@@ -1,34 +1,15 @@
-# ruff: noqa
 import sys
 import os
 
-extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.intersphinx',
-]
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx']
 
-exclude_patterns = [
-    '_build',
-    'Thumbs.db',
-    '.DS_Store',
-    '.sphinx',
-]
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.sphinx']
 
-source_suffix = {
-    '.rst': 'restructuredtext',
-    '.md': 'markdown',
-}
+autodoc_default_options = {'members': None} # None here means "yes"
 
-autoclass_content = 'class'
-
-autodoc_member_order = 'alphabetical'
-
-autodoc_default_options = {
-    'members': None,            # None here means "yes"
-    'undoc-members': None,
-    'show-inheritance': None,
-}
-
+# FIXME: I'm stuck here
+# without python mapping, both 3.12.3 and 3.12.4 fail on overload arg type **specifically**
+# with the mapping, 3.12.3 is OK, but 3.12.4 fails
 intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
 
 # If true, Sphinx will warn about all references where the target
