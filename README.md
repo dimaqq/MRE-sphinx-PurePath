@@ -25,24 +25,21 @@ There's an error under Python 3.12.4:
 The code in question looks like this:
 
 ```py
+import typing
 from pathlib import PurePath
+from typing import BinaryIO, Optional, TextIO, Union
 
+class Container:
+    """blah"""
 
-    @typing.overload
-    def pull(self, path: Union[str, PurePath], *, encoding: None) -> BinaryIO: ...
-
+    # The `path` argument type, in the type overload specifcally is broken under py 3.12.4
     @typing.overload
     def pull(self, path: Union[str, PurePath], *, encoding: str = 'utf-8') -> TextIO: ...
 
-    def pull(
-        self, path: Union[str, PurePath], *, encoding: Optional[str] = 'utf-8'
-    ) -> Union[BinaryIO, TextIO]:
-        """Read a file's content from the remote system.
-
-        Args:
-            path: Path of the file to read from the remote system.
-        [snip]
-        """
+    # This, however is OK
+    def pull(self, path: Union[str, PurePath], *, encoding: Optional[str] = 'utf-8'):
+        """blah. body removed, not needed by sphinx"""
+        pass
 ```
 
 Note that `PurePath` is resolved correctly in other uses in the same file.
