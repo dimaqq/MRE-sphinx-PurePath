@@ -25,26 +25,6 @@ extensions = [
     'sphinxcontrib.jquery',
 ]
 
-# Only add redirects extension if any redirects are specified.
-if AreRedirectsDefined():
-    extensions.append('sphinx_reredirects')
-
-# Only add myst extensions if any configuration is present.
-if IsMyStParserUsed():
-    extensions.append('myst_parser')
-
-    # Additional MyST syntax
-    myst_enable_extensions = [
-        'substitution',
-        'deflist',
-        'linkify'
-    ]
-    myst_enable_extensions.extend(custom_myst_extensions)
-
-# Only add Open Graph extension if any configuration is present.
-if IsOpenGraphConfigured():
-    extensions.append('sphinxext.opengraph')
-
 extensions.extend(custom_extensions)
 extensions = DeduplicateExtensions(extensions)
 
@@ -89,51 +69,9 @@ exclude_patterns = [
     '.DS_Store',
     '.sphinx',
 ]
-exclude_patterns.extend(custom_excludes)
 
 source_suffix = {
     '.rst': 'restructuredtext',
     '.md': 'markdown',
 }
 
-# For ignoring specific links
-linkcheck_anchors_ignore_for_url = [
-    r'https://github\.com/.*'
-]
-linkcheck_anchors_ignore_for_url.extend(custom_linkcheck_anchors_ignore_for_url)
-
-############################################################
-### Styling
-############################################################
-
-# Find the current builder
-builder = 'dirhtml'
-if '-b' in sys.argv:
-    builder = sys.argv[sys.argv.index('-b')+1]
-
-# Setting templates_path for epub makes the build fail
-if builder == 'dirhtml' or builder == 'html':
-    templates_path = ['.sphinx/_templates']
-    notfound_template = '404.html'
-
-# Theme configuration
-html_theme = 'furo'
-html_last_updated_fmt = ''
-html_permalinks_icon = '¶'
-
-############################################################
-### Additional files
-############################################################
-
-html_static_path = ['.sphinx/_static']
-
-html_css_files = [
-    'custom.css',
-    'header.css',
-    'github_issue_links.css',
-    'furo_colors.css'
-]
-html_css_files.extend(custom_html_css_files)
-
-html_js_files = ['header-nav.js']
-html_js_files.extend(custom_html_js_files)
