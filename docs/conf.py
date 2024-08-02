@@ -51,8 +51,6 @@ extensions = DeduplicateExtensions(extensions)
 ### Configuration for extensions
 
 # Used for related links
-if not 'discourse_prefix' in html_context and 'discourse' in html_context:
-    html_context['discourse_prefix'] = html_context['discourse'] + '/t/'
 
 # The URL prefix for the notfound extension depends on whether the documentation uses versions.
 # For documentation on documentation.ubuntu.com, we also must add the slug.
@@ -70,12 +68,6 @@ if 'READTHEDOCS_CANONICAL_URL' in os.environ and os.environ['READTHEDOCS_CANONIC
         url_lang = url_parts[-3] + '/'
 
 # Set notfound_urls_prefix to the slug (if defined) and the version/language affix
-if slug:
-    notfound_urls_prefix = '/' + slug  + '/' + url_lang + url_version
-elif len(url_lang + url_version) > 0:
-    notfound_urls_prefix = '/' + url_lang + url_version
-else:
-    notfound_urls_prefix = ''
 
 notfound_context = {
     'title': 'Page not found',
@@ -104,18 +96,11 @@ source_suffix = {
     '.md': 'markdown',
 }
 
-if not 'conf_py_path' in html_context and 'github_folder' in html_context:
-    html_context['conf_py_path'] = html_context['github_folder']
-
 # For ignoring specific links
 linkcheck_anchors_ignore_for_url = [
     r'https://github\.com/.*'
 ]
 linkcheck_anchors_ignore_for_url.extend(custom_linkcheck_anchors_ignore_for_url)
-
-# Tags cannot be added directly in custom_conf.py, so add them here
-for tag in custom_tags:
-    tags.add(tag)
 
 ############################################################
 ### Styling
@@ -136,11 +121,6 @@ html_theme = 'furo'
 html_last_updated_fmt = ''
 html_permalinks_icon = '¶'
 
-if html_title == '':
-    html_theme_options = {
-        'sidebar_hide_name': True
-        }
-
 ############################################################
 ### Additional files
 ############################################################
@@ -156,6 +136,4 @@ html_css_files = [
 html_css_files.extend(custom_html_css_files)
 
 html_js_files = ['header-nav.js']
-if 'github_issues' in html_context and html_context['github_issues'] and not disable_feedback_button:
-    html_js_files.append('github_issue_links.js')
 html_js_files.extend(custom_html_js_files)
